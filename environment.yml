@@ -1,0 +1,7 @@
+name: twiinit-demos
+channels:
+  - conda-forge
+dependencies:
+  - cosapp
+  - cosapp_lab
+  - jupyterlab
