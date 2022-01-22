@@ -1,0 +1,350 @@
+{
+    "modelJson": {
+        "global": {
+            "tabSetTabLocation": "bottom"
+        },
+        "layout": {
+            "type": "row",
+            "id": "#1",
+            "children": [
+                {
+                    "type": "tabset",
+                    "id": "#2",
+                    "children": [
+                        {
+                            "type": "tab",
+                            "id": "#3",
+                            "name": "Heat exchanger",
+                            "component": "sub",
+                            "config": {
+                                "model": {
+                                    "global": {},
+                                    "layout": {
+                                        "type": "row",
+                                        "id": "#1",
+                                        "children": [
+                                            {
+                                                "type": "row",
+                                                "id": "#15",
+                                                "weight": 50,
+                                                "children": [
+                                                    {
+                                                        "type": "tabset",
+                                                        "id": "#2",
+                                                        "weight": 50,
+                                                        "selected": 1,
+                                                        "children": [
+                                                            {
+                                                                "type": "tab",
+                                                                "id": "#4",
+                                                                "name": "Exchanger",
+                                                                "component": "dataView",
+                                                                "config": {
+                                                                    "layoutID": "#3"
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "tab",
+                                                                "id": "#12",
+                                                                "name": "Chart widget",
+                                                                "component": "grid",
+                                                                "config": {
+                                                                    "layoutID": "#3"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "active": true
+                                                    },
+                                                    {
+                                                        "type": "tabset",
+                                                        "id": "#14",
+                                                        "weight": 50,
+                                                        "children": [
+                                                            {
+                                                                "type": "tab",
+                                                                "id": "#18",
+                                                                "name": "Controller widget",
+                                                                "component": "controller",
+                                                                "config": {
+                                                                    "layoutID": "#3"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "row",
+                                                "id": "#10",
+                                                "weight": 50,
+                                                "children": [
+                                                    {
+                                                        "type": "tabset",
+                                                        "id": "#6",
+                                                        "weight": 50,
+                                                        "children": [
+                                                            {
+                                                                "type": "tab",
+                                                                "id": "#5",
+                                                                "name": "Chart widget",
+                                                                "component": "grid",
+                                                                "config": {
+                                                                    "layoutID": "#3"
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "tabset",
+                                                        "id": "#9",
+                                                        "weight": 50,
+                                                        "children": [
+                                                            {
+                                                                "type": "tab",
+                                                                "id": "#8",
+                                                                "name": "Chart widget",
+                                                                "component": "grid",
+                                                                "config": {
+                                                                    "layoutID": "#3"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "borders": []
+                                }
+                            }
+                        }
+                    ],
+                    "active": true
+                }
+            ]
+        },
+        "borders": []
+    },
+    "plotJson": {
+        "#3@#4": {
+            "traceConfig": {
+                "systemName": "exchanger",
+                "portName": "All ports"
+            }
+        },
+        "#3@#5": {
+            "traceConfig": {
+                "Fan tension": {
+                    "name": "Fan tension",
+                    "plotType": "scatter",
+                    "dataSource": "Recorders",
+                    "xAxisConfig": true,
+                    "systemNameX": "RK",
+                    "recorderRefX": "All",
+                    "xData": "time",
+                    "xDataIndex": "All",
+                    "yAxisConfig": true,
+                    "systemNameY": "RK",
+                    "recorderRefY": "All",
+                    "yData": "cpu.T",
+                    "yDataIndex": "All",
+                    "zAxisConfig": true,
+                    "systemNameZ": "RK",
+                    "recorderRefZ": "All",
+                    "zData": "controller.T",
+                    "zDataIndex": "All"
+                }
+            },
+            "plotLayout": {
+                "title": {
+                    "text": "CPU temperature"
+                },
+                "xaxis": {
+                    "title": {
+                        "text": "time"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        -1.802477183833116,
+                        31.802477183833116
+                    ]
+                },
+                "yaxis": {
+                    "title": {
+                        "text": "temperature"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        -24.251871161290307,
+                        388.4006575719903
+                    ]
+                },
+                "zaxis": {
+                    "title": {
+                        "text": "tension"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "normal",
+                    "range": [
+                        "",
+                        ""
+                    ]
+                },
+                "legend": {
+                    "orientation": "h"
+                },
+                "autosize": true
+            },
+            "advancedTraceDataConfig": {}
+        },
+        "#3@#8": {
+            "traceConfig": {
+                "fan tension": {
+                    "name": "fan tension",
+                    "plotType": "scatter",
+                    "dataSource": "Recorders",
+                    "xAxisConfig": true,
+                    "systemNameX": "RK",
+                    "recorderRefX": "All",
+                    "xData": "time",
+                    "xDataIndex": "All",
+                    "yAxisConfig": true,
+                    "systemNameY": "RK",
+                    "recorderRefY": "All",
+                    "yData": "fan.tension",
+                    "yDataIndex": "All",
+                    "zAxisConfig": true,
+                    "systemNameZ": "RK",
+                    "recorderRefZ": "All",
+                    "zData": "controller.T",
+                    "zDataIndex": "All"
+                }
+            },
+            "plotLayout": {
+                "title": {
+                    "text": "Fan tension"
+                },
+                "xaxis": {
+                    "title": {
+                        "text": "time"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        -1.802477183833116,
+                        31.802477183833116
+                    ]
+                },
+                "yaxis": {
+                    "title": {
+                        "text": "tension"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        -0.836734693877551,
+                        12.83673469387755
+                    ]
+                },
+                "zaxis": {
+                    "title": {
+                        "text": "Y-axis"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "normal",
+                    "range": [
+                        "",
+                        ""
+                    ]
+                },
+                "autosize": true,
+                "legend": {
+                    "orientation": "h"
+                }
+            },
+            "advancedTraceDataConfig": {}
+        },
+        "#3@#12": {
+            "traceConfig": {
+                "CPU power": {
+                    "name": "CPU power",
+                    "plotType": "scatter",
+                    "dataSource": "Recorders",
+                    "xAxisConfig": true,
+                    "systemNameX": "RK",
+                    "recorderRefX": "All",
+                    "xData": "time",
+                    "xDataIndex": "All",
+                    "yAxisConfig": true,
+                    "systemNameY": "RK",
+                    "recorderRefY": "All",
+                    "yData": "cpu.power",
+                    "yDataIndex": "All",
+                    "zAxisConfig": true,
+                    "systemNameZ": "RK",
+                    "recorderRefZ": "All",
+                    "zData": "controller.T",
+                    "zDataIndex": "All"
+                }
+            },
+            "plotLayout": {
+                "title": {
+                    "text": "CPU power"
+                },
+                "xaxis": {
+                    "title": {
+                        "text": "time"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        -1.802477183833116,
+                        31.802477183833116
+                    ]
+                },
+                "yaxis": {
+                    "title": {
+                        "text": "CPU power"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "linear",
+                    "range": [
+                        104,
+                        106
+                    ]
+                },
+                "zaxis": {
+                    "title": {
+                        "text": "Y-axis"
+                    },
+                    "exponentformat": "power",
+                    "autorange": true,
+                    "type": "normal",
+                    "range": [
+                        "",
+                        ""
+                    ]
+                },
+                "legend": {
+                    "orientation": "h"
+                }
+            },
+            "advancedTraceDataConfig": {}
+        }
+    },
+    "selectedVariable": {
+        "exchanger.inwards.surface": 0.008,
+        "fan.fl_in.T": 303,
+        "cpu.inwards.usage": 10
+    }
+}
