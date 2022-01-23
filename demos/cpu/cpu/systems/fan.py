@@ -20,4 +20,3 @@ class Fan(System):
     def compute(self):
         self.fl_out.mass_flow = self.cfm * self.tension / self.design_tension
         self.fl_out.T = self.fl_in.T
-        self.fl_out.p = self.fl_in.p

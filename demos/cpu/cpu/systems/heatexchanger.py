@@ -28,4 +28,3 @@ class HeatExchanger(System):
 
         self.fl_out.mass_flow = self.fl_in.mass_flow
         self.fl_out.T = self.fl_in.T + self.dH / self.fl_in.cp
-        self.fl_out.p = self.fl_in.p
