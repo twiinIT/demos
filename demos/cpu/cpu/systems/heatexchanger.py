@@ -13,6 +13,7 @@ class HeatExchanger(System):
         self.add_input(Fluid, "fl_in")
         self.add_inward("T", 0.0, unit="K", desc="Metal temperature")
         self.add_inward("surface", 0.01, unit="m**2", desc="Exchanger surface")
+        self.add_inward("cp", 1004.0, unit="J/K/kg", desc="Heat capacity at constant pressure")
 
         # outputs
         self.add_output(Fluid, "fl_out")
@@ -27,4 +28,4 @@ class HeatExchanger(System):
         self.heat_flow = self.h * (self.T - self.fl_in.T) * self.surface
 
         self.fl_out.mass_flow = self.fl_in.mass_flow
-        self.fl_out.T = self.fl_in.T + self.dH / self.fl_in.cp
+        self.fl_out.T = self.fl_in.T + self.dH / self.cp
