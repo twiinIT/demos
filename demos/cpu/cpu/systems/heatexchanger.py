@@ -12,11 +12,11 @@ class HeatExchanger(System):
         # inputs
         self.add_input(Fluid, "fl_in")
         self.add_inward("T", 0.0, unit="K", desc="Metal temperature")
-        self.add_inward("h", 20.0, desc="Heat conductivity")
         self.add_inward("surface", 0.01, unit="m**2", desc="Exchanger surface")
 
         # outputs
         self.add_output(Fluid, "fl_out")
+        self.add_outward("h", 20.0, desc="Heat conductivity")
         self.add_outward("heat_flow", 0.0, desc="Exchanger-to-air heat flow")
 
         # transient
