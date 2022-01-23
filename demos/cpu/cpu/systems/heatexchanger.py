@@ -16,8 +16,8 @@ class HeatExchanger(System):
 
         # outputs
         self.add_output(Fluid, "fl_out")
-        self.add_outward("h", 20.0, desc="Heat conductivity")
-        self.add_outward("heat_flow", 0.0, desc="Exchanger-to-air heat flow")
+        self.add_outward("h", 20.0, unit="W/K/m**2", desc="Heat conductivity")
+        self.add_outward("heat_flow", 0.0, unit="W", desc="Exchanger-to-air heat flow")
 
         # transient
         self.add_transient("dH", der="heat_flow", desc="Enthalpy delta")
