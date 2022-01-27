@@ -5,9 +5,10 @@ from cpu.ports.fluid import Fluid
 
 
 class HeatExchanger(System):
-    """ 
+    """
     Compute heatflux extracted by air flow
     """
+
     def setup(self):
         # inputs
         self.add_input(Fluid, "fl_in")
@@ -20,11 +21,8 @@ class HeatExchanger(System):
         self.add_output(Fluid, "fl_out")
         self.add_outward("heat_flow", 0.0, unit="W", desc="Exchanger-to-air heat flow")
 
-        # transient
-        self.add_transient("dH", der="heat_flow", desc="Enthalpy delta")
-
     def compute(self):
         self.heat_flow = self.h * (self.T - self.fl_in.T) * self.surface
 
         self.fl_out.mass_flow = self.fl_in.mass_flow
-        self.fl_out.T = self.fl_in.T + self.dH / self.cp
+        self.fl_out.T = self.fl_in.T + self.heat_flow / self.cp
