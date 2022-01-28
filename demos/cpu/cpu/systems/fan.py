@@ -9,14 +9,14 @@ class Fan(System):
     """
     def setup(self):
         # inputs
-        self.add_inward("T_air", 313.5, unit="K", desc="Air temperature")
+        self.add_inward("T_air", 40., unit="degC", desc="Air temperature")
         self.add_inward("tension", 0.0, unit="V", desc="Input tension")
         self.add_inward("design_tension", 12.0, unit="V", desc="Fan input tension at design point")
-        self.add_inward("cfm", 1.0, unit="ft**3/min", desc="Cubic feet per minute")
+        self.add_inward("mass_flow_max", 1.0, unit="g/s", desc="Maximum mass flow")
 
         # outputs
         self.add_output(Fluid, "fl_out")
 
     def compute(self):
-        self.fl_out.mass_flow = self.cfm * self.tension / self.design_tension
+        self.fl_out.mass_flow = self.mass_flow_max * self.tension / self.design_tension
         self.fl_out.T = self.T_air
