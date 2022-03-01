@@ -1,7 +1,7 @@
 from cosapp.systems import System
 
 
-class FanController(System):
+class FanControler(System):
     """ 
     Define tension for fan from the level of CPU temperature
     """
@@ -13,14 +13,23 @@ class FanController(System):
         self.add_inward("low_tension", 0.0, unit="V", desc="Output low tension")
         self.add_inward("medium_tension", 6.0, unit="V", desc="Output medium tension")
         self.add_inward("max_tension", 12.0, unit="V", desc="Output max tension")
+        self.add_inward("tension_command", 12.0, unit="V", desc="Output command tension")
 
         # outputs
         self.add_outward("tension", 0.0, unit="V", desc="Output tension")
 
+        self.add_event('null_to_low_tension', trigger="T >= low_threshold")
+        self.add_event('low_to_max_tension', trigger="T >= high_threshold")
+        self.add_event('low_to_null_tension', trigger="T <= low_threshold")
+        self.add_event('max_to_low_tension', trigger="T <= high_threshold")
+
     def compute(self):
-        if self.T_cpu <= self.low_threshold:
-            self.tension = self.low_tension
-        elif self.T_cpu <= self.high_threshold:
-            self.tension = self.medium_tension
+        self.tension = self.tension_command
+
+    def transition(self):
+        if self.low_to_null_tension.present:
+            self.tension_command = 0.
+        elif self.null_to_low_tension.present or self.max_to_low_tension.present:
+            self.tension_command = self.medium_tension
         else:
-            self.tension = self.max_tension
+            self.tension_command = self.max_tension

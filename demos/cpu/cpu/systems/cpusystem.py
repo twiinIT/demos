@@ -1,6 +1,6 @@
 from cosapp.systems import System
 
-from cpu.systems import CPU, HeatExchanger, Fan, FanController
+from cpu.systems import CPU, HeatExchanger, Fan, FanControler
 
             
 class CPUSystem(System):
@@ -8,7 +8,7 @@ class CPUSystem(System):
     def setup(self):
 
         # children
-        self.add_child(FanController("controler"))
+        self.add_child(FanControler("controler"))
         self.add_child(Fan("fan"))
         self.add_child(HeatExchanger("exchanger"))
         self.add_child(CPU("cpu"), pulling={"T" : "T_cpu"})
