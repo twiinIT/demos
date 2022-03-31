@@ -51,3 +51,44 @@ def compare_with_image(s, render2d, render):
     inlet_angle_slider.observe(on_inlet_angle_value_change, names='value')
 
     return widgets.HBox([render2d.show(), img, render.show(), widgets.VBox([blade_slider, inlet_angle_slider])])
+
+
+def grid_display(s, render):
+    blade_slider = widgets.IntSlider(
+        value=60,
+        min=50,
+        max=70,
+        step=1,
+        description='Blade count:',
+        disabled=False,
+        continuous_update=True,
+        orientation='horizontal',
+        readout=True
+    )
+
+    inlet_angle_slider = widgets.IntSlider(
+        value=60,
+        min=40,
+        max=80,
+        step=2,
+        description='Inlet angle (deg):',
+        disabled=False,
+        continuous_update=True,
+        orientation='horizontal',
+        readout=True
+    )
+        
+    def on_count_value_change(change):
+        s.count = change['new']
+        s.run_drivers()
+        render.update_shape(s.geometry, uid="row")
+
+    def on_inlet_angle_value_change(change):
+        s.blade.inlet_angle = change['new']
+        s.run_drivers()
+        render.update_shape(s.geometry, uid="row")
+
+    blade_slider.observe(on_count_value_change, names='value')
+    inlet_angle_slider.observe(on_inlet_angle_value_change, names='value')
+
+    return widgets.HBox([render.show(), widgets.VBox([blade_slider, inlet_angle_slider])])
