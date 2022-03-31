@@ -135,17 +135,19 @@ class ParametricBladeGeometry(System):
             directions_only=False,
         )
 
-        def scale_2d_profile(curve, f):
-            gtrsf = gp_GTrsf2d()
-            gtrsf.SetAffinity(gp_Ax2d(gp_Pnt2d(), gp_Dir2d(1.0, 0.0)), f)
+        def scale_2d_profile(curve, f, se):
+            gtrsf1 = gp_GTrsf2d()
+            gtrsf1.SetAffinity(gp_Ax2d(gp_Pnt2d(), gp_Dir2d(1.0, 0.0)), f)
+            gtrsf2 = gp_GTrsf2d()
+            gtrsf2.SetAffinity(gp_Ax2d(gp_Pnt2d(), gp_Dir2d(0.0, 1.0)), se)
 
             arr = CreateArray1.of_points([p for p in curve.Poles()])
             for i in range(1, arr.Length() + 1):
                 p = arr.Value(i)
-                p.SetXY(gtrsf.Transformed(p.XY()))
+                p.SetXY(gtrsf2.Transformed(gtrsf1.Transformed(p.XY())))
                 curve.SetPole(i, p)
 
-        scale_2d_profile(c1, chord)
+        scale_2d_profile(c1, chord, chord / mean_radius)
 
         cyl1 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), hub_radius)
         proj1 = BRepBuilderAPI_MakeEdge(c1, cyl1).Shape()
