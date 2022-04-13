@@ -24,7 +24,7 @@ class HeatExchanger(System):
         self.add_outward("h", 310.0, unit="W/K/m**2", desc="Heat conductivity")
 
     def compute(self):
-        self.h = self.h_natural + self.h_forced * max(self.fl_in.mass_flow / self.max_mass_flow, 1.)
+        self.h = self.h_natural + self.h_forced * min(self.fl_in.mass_flow / self.max_mass_flow, 1.)
         self.heat_flow = self.h * (self.T_cpu - self.fl_in.T) * self.surface
 
         self.fl_out.mass_flow = self.fl_in.mass_flow
