@@ -3,8 +3,17 @@
 
 import pytest
 
-from ..systems import CPU, CPUSystem, Fan, FanController, HeatExchanger, \
-    CasingGeometry, FanGeometry, ParametricBladeGeometry, RotorGeometry
+from ..systems import (
+    CPU,
+    CasingGeometry,
+    CPUSystem,
+    Fan,
+    FanController,
+    FanGeometry,
+    HeatExchanger,
+    ParametricBladeGeometry,
+    RotorGeometry,
+)
 
 cls_list = [
     ParametricBladeGeometry,
