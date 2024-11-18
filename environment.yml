@@ -3,5 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cosapp
+  - numpy
   - cosapp_lab
   - jupyterlab
+  - pytest
