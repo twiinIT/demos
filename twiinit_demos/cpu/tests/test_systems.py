@@ -3,9 +3,20 @@
 
 import pytest
 
-from ..systems import CPU, CPUSystem, Fan, FanController, HeatExchanger
+from ..systems import CPU, CPUSystem, Fan, FanController, HeatExchanger, \
+    CasingGeometry, FanGeometry, ParametricBladeGeometry, RotorGeometry
 
-cls_list = [CPU, CPUSystem, Fan, FanController, HeatExchanger]
+cls_list = [
+    ParametricBladeGeometry,
+    CPU,
+    CPUSystem,
+    Fan,
+    FanController,
+    HeatExchanger,
+    CasingGeometry,
+    FanGeometry,
+    RotorGeometry,
+]
 
 
 @pytest.mark.parametrize("cls", cls_list)
