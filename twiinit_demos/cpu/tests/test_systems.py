@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import pytest
-from cpu.systems import CPU, CPUSystem, Fan, FanController, HeatExchanger
+from ..systems import CPU, CPUSystem, Fan, FanController, HeatExchanger
 
 cls_list = [CPU, CPUSystem, Fan, FanController, HeatExchanger]
 
