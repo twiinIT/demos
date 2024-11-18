@@ -3,7 +3,7 @@
 
 from cosapp.systems import System
 
-from twiinit_demos.cpu.ports.fluid import Fluid
+from twiinit_demos.cpu.ports import FluidPort
 
 
 class HeatExchanger(System):
@@ -13,7 +13,7 @@ class HeatExchanger(System):
 
     def setup(self):
         # inputs
-        self.add_input(Fluid, "fl_in")
+        self.add_input(FluidPort, "fl_in")
         self.add_inward("T_cpu", 0.0, unit="degC", desc="CPU temperature")
         self.add_inward("surface", 0.01, unit="m**2", desc="Exchanger surface")
         self.add_inward(
@@ -25,7 +25,7 @@ class HeatExchanger(System):
         self.add_inward("max_mass_flow", 1.0, unit="kg/s", desc="Maximum air mass flow")
 
         # outputs
-        self.add_output(Fluid, "fl_out")
+        self.add_output(FluidPort, "fl_out")
         self.add_outward("heat_flow", 0.0, unit="W", desc="Exchanger-to-air heat flow")
         self.add_outward("h", 310.0, unit="W/K/m**2", desc="Heat conductivity")
 

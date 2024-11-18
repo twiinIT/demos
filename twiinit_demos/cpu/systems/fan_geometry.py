@@ -39,7 +39,7 @@ from pyoccad.measure import MeasureCurve
 from pyoccad.measure.shape import bounds
 from pyoccad.transform import Sweep, Translate
 
-from ..ports.geom import GeomPort
+from ..ports import GeomPort
 
 
 def face_from_wires(plane, *wires):

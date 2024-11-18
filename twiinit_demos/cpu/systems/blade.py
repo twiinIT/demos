@@ -15,16 +15,16 @@ from pyoccad.create import (
     CreateArray1,
     CreateBSpline,
     CreateCurve,
+    CreateEdge,
     CreateLine,
     CreateRotation,
     CreateTopology,
-    CreateEdge,
     CreateUnsignedCoordSystem,
     CreateVector,
 )
 from pyoccad.measure import MeasureCurve
 from pyoccad.measure.shape import bounds
-from pyoccad.transform import Sweep, Translate, Move
+from pyoccad.transform import Move, Sweep, Translate
 
 
 def face_from_wires(plane, *wires):
@@ -65,16 +65,17 @@ class ParametricBladeGeometry(System):
         self.add_outward("dimension", np.empty(3), unit="m")
         self.add_outward("position", np.empty(3), unit="m")
 
-        self.add_outward("stagger_angle", 0., unit="rad")
+        self.add_outward("stagger_angle", 0.0, unit="rad")
 
         self.add_outward("backbone", None)
         self.add_outward("backbone2d", None)
         self.add_outward("backbone2d_unscaled", None)
         self.add_outward("geometry", None)
 
-
     def compute_backbone(self):
-        self.stagger_angle = stagger_angle = (radians(self.inlet_angle) + radians(self.exit_angle)) / 2.0
+        self.stagger_angle = stagger_angle = (
+            radians(self.inlet_angle) + radians(self.exit_angle)
+        ) / 2.0
 
         xi = 0.0
         yi = 0.0
@@ -117,9 +118,7 @@ class ParametricBladeGeometry(System):
         tend = MeasureCurve.derivatives(bb2d, bb2d.LastParameter(), 1)[1]
 
         center2d = np.array(
-            MeasureCurve.value(
-                bb2d, bb2d.LastParameter() * self.max_thickness_position
-            ).Coord()
+            MeasureCurve.value(bb2d, bb2d.LastParameter() * self.max_thickness_position).Coord()
         )
         xebb, yebb = center2d
         de = self.max_thickness_ratio
@@ -129,9 +128,7 @@ class ParametricBladeGeometry(System):
         yemax2 = yebb - de * sin(self.stagger_angle) * (1.0 - self.max_thickness_th_pos)
 
         center2d2 = np.array(
-            MeasureCurve.value(
-                bb2d, bb2d.LastParameter() * self.stacking_parameter
-            ).Coord()
+            MeasureCurve.value(bb2d, bb2d.LastParameter() * self.stacking_parameter).Coord()
         )
         c1 = CreateBSpline.from_points_interpolate_with_bounds_control(
             (
@@ -160,17 +157,17 @@ class ParametricBladeGeometry(System):
                 p = arr.Value(i)
                 p.SetXY(gtrsf2.Transformed(gtrsf1.Transformed(p.XY())))
                 new_curve.SetPole(i, p)
-            
+
             return new_curve
 
         scale_2d_profile(c1, chord, chord / mean_radius)
 
         if self.stagger_angle:
-            stagger_sign = self.stagger_angle / abs(self.stagger_angle )
+            stagger_sign = self.stagger_angle / abs(self.stagger_angle)
         else:
-            stagger_sign = 1.
+            stagger_sign = 1.0
 
-        rot = CreateRotation.rotation_z_2d_deg(stagger_sign*self.hub_delta_stagger)
+        rot = CreateRotation.rotation_z_2d_deg(stagger_sign * self.hub_delta_stagger)
         hub_profile = Move.using_transformation(c1, rot, inplace=False)
         cyl1 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), hub_radius)
         proj1 = BRepBuilderAPI_MakeEdge(hub_profile, cyl1).Shape()
@@ -182,7 +179,7 @@ class ParametricBladeGeometry(System):
         ).Shape()
         breplib_BuildCurve3d(proj2)
 
-        rot = CreateRotation.rotation_z_2d_deg(stagger_sign*self.tip_delta_stagger)
+        rot = CreateRotation.rotation_z_2d_deg(stagger_sign * self.tip_delta_stagger)
         tip_profile = Move.using_transformation(c1, rot, inplace=False)
         cyl3 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), self.tip_radius)
         proj3 = BRepBuilderAPI_MakeEdge(
@@ -272,16 +269,17 @@ class ParametricBladeGeometryOld(System):
         self.add_outward("dimension", np.empty(3), unit="m")
         self.add_outward("position", np.empty(3), unit="m")
 
-        self.add_outward("stagger_angle", 0., unit="rad")
+        self.add_outward("stagger_angle", 0.0, unit="rad")
 
         self.add_outward("backbone", None)
         self.add_outward("backbone2d", None)
         self.add_outward("backbone2d_unscaled", None)
         self.add_outward("geometry", None)
 
-
     def compute_backbone(self):
-        self.stagger_angle = stagger_angle = (radians(self.inlet_angle) + radians(self.exit_angle)) / 2.0
+        self.stagger_angle = stagger_angle = (
+            radians(self.inlet_angle) + radians(self.exit_angle)
+        ) / 2.0
 
         xi = 0.0
         yi = 0.0
@@ -324,9 +322,7 @@ class ParametricBladeGeometryOld(System):
         tend = MeasureCurve.derivatives(bb2d, bb2d.LastParameter(), 1)[1]
 
         center2d = np.array(
-            MeasureCurve.value(
-                bb2d, bb2d.LastParameter() * self.max_thickness_position
-            ).Coord()
+            MeasureCurve.value(bb2d, bb2d.LastParameter() * self.max_thickness_position).Coord()
         )
         xebb, yebb = center2d
         de = self.max_thickness_ratio
@@ -336,9 +332,7 @@ class ParametricBladeGeometryOld(System):
         yemax2 = yebb - de * sin(self.stagger_angle) * (1.0 - self.max_thickness_th_pos)
 
         center2d2 = np.array(
-            MeasureCurve.value(
-                bb2d, bb2d.LastParameter() * self.stacking_parameter
-            ).Coord()
+            MeasureCurve.value(bb2d, bb2d.LastParameter() * self.stacking_parameter).Coord()
         )
         c1 = CreateBSpline.from_points_interpolate_with_bounds_control(
             (
@@ -364,17 +358,17 @@ class ParametricBladeGeometryOld(System):
                 p = arr.Value(i)
                 p.SetXY(gtrsf2.Transformed(gtrsf1.Transformed(p.XY())))
                 new_curve.SetPole(i, p)
-            
+
             return new_curve
 
         scale_2d_profile(c1, chord, chord / mean_radius)
 
         if self.stagger_angle:
-            stagger_sign = self.stagger_angle / abs(self.stagger_angle )
+            stagger_sign = self.stagger_angle / abs(self.stagger_angle)
         else:
-            stagger_sign = 1.
+            stagger_sign = 1.0
 
-        rot = CreateRotation.rotation_z_2d_deg(stagger_sign*self.hub_delta_stagger)
+        rot = CreateRotation.rotation_z_2d_deg(stagger_sign * self.hub_delta_stagger)
         hub_profile = Move.using_transformation(c1, rot, inplace=False)
         cyl1 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), hub_radius)
         proj1 = BRepBuilderAPI_MakeEdge(hub_profile, cyl1).Shape()
@@ -386,7 +380,7 @@ class ParametricBladeGeometryOld(System):
         ).Shape()
         breplib_BuildCurve3d(proj2)
 
-        rot = CreateRotation.rotation_z_2d_deg(stagger_sign*self.tip_delta_stagger)
+        rot = CreateRotation.rotation_z_2d_deg(stagger_sign * self.tip_delta_stagger)
         tip_profile = Move.using_transformation(c1, rot, inplace=False)
         cyl3 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), self.tip_radius)
         proj3 = BRepBuilderAPI_MakeEdge(
@@ -415,4 +409,3 @@ class ParametricBladeGeometryOld(System):
         self.geometry = sw
         # geometry = CreateTopology.make_edge(self.backbone)
         # self.geometry = CreateTopology.make_compound(proj1, proj2, proj3)
-

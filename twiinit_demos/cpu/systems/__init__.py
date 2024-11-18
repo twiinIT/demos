@@ -6,6 +6,6 @@ from .fan import Fan
 from .fancontroller import FanController
 from .heatexchanger import HeatExchanger
 
-from .cpusystem import CPUSystem
+from .cpusystem import CPUSystem  # isort:skip
 
 __all__ = ["CPU", "CPUSystem", "Fan", "FanController", "HeatExchanger"]

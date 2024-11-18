@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache2.0
 
 from cosapp.systems import System
-from twiinit_demos.cpu.ports.fluid import Fluid
+
+from twiinit_demos.cpu.ports import FluidPort
 
 
 class Fan(System):
@@ -19,7 +20,7 @@ class Fan(System):
         self.add_inward("mass_flow_scalar", 1.0, unit="", desc="Percentage of mass flow available")
 
         # outputs
-        self.add_output(Fluid, "fl_out")
+        self.add_output(FluidPort, "fl_out")
 
     def compute(self):
         self.fl_out.mass_flow = (

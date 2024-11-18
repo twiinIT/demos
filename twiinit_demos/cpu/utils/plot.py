@@ -1,7 +1,7 @@
-import plotly.graph_objs as go
+import ipywidgets
 import numpy as np
 import pandas as pd
-import ipywidgets
+import plotly.graph_objs as go
 
 
 def plot_recorders(recs, pplots, *args, **kwargs):

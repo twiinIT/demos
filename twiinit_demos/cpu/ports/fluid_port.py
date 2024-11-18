@@ -4,7 +4,9 @@
 from cosapp.ports import Port
 
 
-class Fluid(Port):
+class FluidPort(Port):
+    """Fluid port."""
+
     def setup(self):
 
         self.add_variable("mass_flow", unit="g/s", desc="Mass flow")

@@ -1,6 +1,6 @@
-import plotly.graph_objs as go
 import numpy as np
 import pandas as pd
+import plotly.graph_objs as go
 
 
 def plot_solver_trace(solver, *args, **kwargs):

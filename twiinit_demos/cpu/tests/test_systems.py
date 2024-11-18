@@ -2,9 +2,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import pytest
+
 from ..systems import CPU, CPUSystem, Fan, FanController, HeatExchanger
 
 cls_list = [CPU, CPUSystem, Fan, FanController, HeatExchanger]
+
 
 @pytest.mark.parametrize("cls", cls_list)
 class TestSystems:
