@@ -5,9 +5,7 @@ from cosapp.systems import System
 
 
 class FanController(System):
-    """
-    Define tension for fan from the level of CPU temperature
-    """
+    """Define tension for fan from the level of CPU temperature."""
 
     def setup(self):
         # inputs

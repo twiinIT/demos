@@ -1,9 +1,12 @@
-import numpy as np
+# Copyright (C) 2024, twiinIT
+# SPDX-License-Identifier: Apache2.0
+
 import pandas as pd
 import plotly.graph_objs as go
 
 
 def plot_solver_trace(solver, *args, **kwargs):
+    """Plot solver trace."""
 
     trace = list(solver._NonLinearSolver__trace)
     unknowns = list(solver.problem.unknowns.keys())

@@ -1,11 +1,12 @@
+# Copyright (C) 2024, twiinIT
+# SPDX-License-Identifier: Apache2.0
+
 import ipywidgets
-import numpy as np
-import pandas as pd
 import plotly.graph_objs as go
 
 
 def plot_recorders(recs, pplots, *args, **kwargs):
-
+    """plot_recorders."""
     plots = []
     for r in pplots:
         r_plots = []

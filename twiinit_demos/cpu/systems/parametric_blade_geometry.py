@@ -6,9 +6,7 @@ from math import cos, radians, sin
 import numpy as np
 from cosapp.systems import System
 from OCC.Core.BRep import BRep_Tool
-from OCC.Core.BRepBuilderAPI import (
-    BRepBuilderAPI_MakeEdge,
-)
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
 from OCC.Core.BRepLib import breplib_BuildCurve3d
 from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.gp import gp_Ax2d, gp_Dir2d, gp_GTrsf2d, gp_Pnt2d
@@ -161,4 +159,3 @@ class ParametricBladeGeometry(System):
         self.geometry = sw
         # geometry = CreateTopology.make_edge(self.backbone)
         # self.geometry = CreateTopology.make_compound(proj1, proj2, proj3)
-

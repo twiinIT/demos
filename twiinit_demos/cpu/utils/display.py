@@ -2,6 +2,7 @@ import ipywidgets as widgets
 
 
 def compare_with_image(s, render2d, render):
+    """Compare with image."""
     file = open("images/fan.png", "rb")
     image = file.read()
     img = widgets.Image(
@@ -56,6 +57,7 @@ def compare_with_image(s, render2d, render):
 
 
 def grid_display(s, render):
+    """Display grid."""
     blade_slider = widgets.IntSlider(
         value=60,
         min=50,

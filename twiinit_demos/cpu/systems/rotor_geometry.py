@@ -5,9 +5,7 @@ from math import pi
 
 from cosapp.systems import System
 from OCC.Core.BRep import BRep_Tool
-from OCC.Core.BRepBuilderAPI import (
-    BRepBuilderAPI_Transform,
-)
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
 from OCC.Core.BRepOffsetAPI import BRepOffsetAPI_MakeThickSolid
 from OCC.Core.Geom import Geom_Plane
 from pyoccad.create import (
@@ -73,5 +71,3 @@ class RotorGeometry(System):
         hollowed_moyeu = builder.Shape()
 
         self.geometry = CreateTopology.make_compound(*blades, hollowed_moyeu)
-
-

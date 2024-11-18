@@ -174,4 +174,3 @@ def face_from_wires(plane, *wires):
         builder.Add(w)
 
     return builder.Shape()
-

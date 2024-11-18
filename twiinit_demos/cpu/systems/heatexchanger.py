@@ -7,9 +7,7 @@ from twiinit_demos.cpu.ports import FluidPort
 
 
 class HeatExchanger(System):
-    """
-    Compute heatflow extracted by air flow
-    """
+    """Compute heatflow extracted by air flow."""
 
     def setup(self):
         # inputs

@@ -7,6 +7,8 @@ from twiinit_demos.cpu.systems import CPU, Fan, FanController, HeatExchanger
 
 
 class CPUSystem(System):
+    """Evaluate CPU system."""
+
     def setup(self):
 
         # children
