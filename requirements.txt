@@ -3,3 +3,4 @@ plotly
 jupyterlab
 cosapp_lab
 pyoccad
+pythreejs
