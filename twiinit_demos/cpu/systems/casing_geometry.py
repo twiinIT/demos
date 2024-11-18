@@ -10,7 +10,7 @@ from OCC.Core.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_Transform,
 )
-from OCC.Core.BRepLib import breplib_BuildCurve3d
+from OCC.Core.BRepLib import breplib
 from OCC.Core.Geom import Geom_CylindricalSurface
 from pyoccad.create import (
     CreateAxis,
@@ -133,13 +133,13 @@ class CasingGeometry(System):
 
             cyl1 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), radius)
             proj1 = BRepBuilderAPI_MakeEdge(l1, cyl1).Shape()
-            breplib_BuildCurve3d(proj1)
+            breplib.BuildCurve3d(proj1)
             proj2 = BRepBuilderAPI_MakeEdge(l2, cyl1).Shape()
-            breplib_BuildCurve3d(proj2)
+            breplib.BuildCurve3d(proj2)
             proj3 = BRepBuilderAPI_MakeEdge(l3, cyl1).Shape()
-            breplib_BuildCurve3d(proj3)
+            breplib.BuildCurve3d(proj3)
             proj4 = BRepBuilderAPI_MakeEdge(l4, cyl1).Shape()
-            breplib_BuildCurve3d(proj4)
+            breplib.BuildCurve3d(proj4)
 
             w = CreateWire.from_elements((proj1, proj2, proj3, proj4))
 

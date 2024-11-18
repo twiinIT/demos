@@ -7,7 +7,7 @@ import numpy as np
 from cosapp.systems import System
 from OCC.Core.BRep import BRep_Tool
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
-from OCC.Core.BRepLib import breplib_BuildCurve3d
+from OCC.Core.BRepLib import breplib
 from OCC.Core.Geom import Geom_CylindricalSurface
 from OCC.Core.gp import gp_Ax2d, gp_Dir2d, gp_GTrsf2d, gp_Pnt2d
 from pyoccad.create import (
@@ -129,19 +129,19 @@ class ParametricBladeGeometry(System):
 
         cyl1 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), hub_radius)
         proj1 = BRepBuilderAPI_MakeEdge(c1, cyl1).Shape()
-        breplib_BuildCurve3d(proj1)
+        breplib.BuildCurve3d(proj1)
 
         cyl2 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), mean_radius)
         proj2 = BRepBuilderAPI_MakeEdge(
             Translate.from_vector(c1, (-radians(self.swirl) / 2.0, 0.0), inplace=False), cyl2
         ).Shape()
-        breplib_BuildCurve3d(proj2)
+        breplib.BuildCurve3d(proj2)
 
         cyl3 = Geom_CylindricalSurface(CreateUnsignedCoordSystem.ox(), self.tip_radius)
         proj3 = BRepBuilderAPI_MakeEdge(
             Translate.from_vector(c1, (-radians(self.swirl), 0.0), inplace=False), cyl3
         ).Shape()
-        breplib_BuildCurve3d(proj3)
+        breplib.BuildCurve3d(proj3)
 
         segment = CreateLine.between_2_points(
             BRep_Tool.Curve(proj1)[0].Value(0.0), BRep_Tool.Curve(proj3)[0].Value(0.0)
