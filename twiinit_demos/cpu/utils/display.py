@@ -3,7 +3,7 @@ import ipywidgets as widgets
 
 def compare_with_image(s, render2d, render):
     """Compare with image."""
-    file = open("images/fan.png", "rb")
+    file = open("../images/fan.png", "rb")
     image = file.read()
     img = widgets.Image(
         value=image,
