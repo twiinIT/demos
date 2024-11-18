@@ -4,6 +4,8 @@ channels:
 dependencies:
   - cosapp
   - numpy
+  - plotly
   - cosapp_lab
   - jupyterlab
   - pytest
+  - pyoccad
