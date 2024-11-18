@@ -1,3 +1,6 @@
+# Copyright (C) 2024, twiinIT
+# SPDX-License-Identifier: Apache2.0
+
 from cosapp.systems import System
 from twiinit_demos.cpu.systems import CPU, Fan, FanController, HeatExchanger
 

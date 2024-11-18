@@ -1,3 +1,6 @@
+# Copyright (C) 2024, twiinIT
+# SPDX-License-Identifier: Apache2.0
+
 from .cpu import CPU
 from .fan import Fan
 from .fancontroller import FanController

@@ -1,3 +1,6 @@
+# Copyright (C) 2024, twiinIT
+# SPDX-License-Identifier: Apache2.0
+
 from math import cos, pi, radians, sin, sqrt
 
 import numpy as np
