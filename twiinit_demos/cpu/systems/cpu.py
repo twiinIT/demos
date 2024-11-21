@@ -1,5 +1,5 @@
 # Copyright (C) 2024, twiinIT
-# SPDX-License-Identifier: Apache2.0
+# SPDX-License-Identifier: Apache-2.0
 
 from cosapp.systems import System
 
