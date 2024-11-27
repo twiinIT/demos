@@ -3,7 +3,7 @@
 
 from cosapp.systems import System
 
-from twiinit_demos.cpu.systems import CPU, Fan, FanController, HeatExchanger
+from cpu.systems import CPU, Fan, FanController, HeatExchanger
 
 
 class CPUSystem(System):

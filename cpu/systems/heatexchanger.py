@@ -3,7 +3,7 @@
 
 from cosapp.systems import System
 
-from twiinit_demos.cpu.ports import FluidPort
+from cpu.ports import FluidPort
 
 
 class HeatExchanger(System):
