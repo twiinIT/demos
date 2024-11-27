@@ -35,11 +35,8 @@ class TestSystems:
     def test_setup(self, cls):
         print("Class name:", cls.__name__)
         cls("sys")
-        assert True
 
     def test_once(self, cls):
         print("Class name:", cls.__name__)
         sys = cls("sys")
         sys.run_once()
-
-        assert True
