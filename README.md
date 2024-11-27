@@ -1,3 +1,3 @@
-# twiinIT demos
+# twiinIT CPU demos
 
-This is a repository for twiinIT's demos.
+This is a repository for twiinIT's CPU demo.

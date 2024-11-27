@@ -1,4 +1,4 @@
-name: twiinit-demos
+name: cpu-demos
 channels:
   - conda-forge
 dependencies:
