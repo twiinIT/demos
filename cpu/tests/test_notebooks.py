@@ -2,10 +2,12 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import os
+import glob
+
 import pytest
 import nbformat
+
 from nbconvert.preprocessors import ExecutePreprocessor
-import jupyter_client
 
 NOTEBOOKS_DIR = "cpu/notebooks"
 
@@ -38,6 +40,7 @@ list_nb = ["cpu/CPU_demos.ipynb",
 def execute_preprocessor():
     return ExecutePreprocessor(timeout=600)
 
+@pytest.mark.notebooks
 @pytest.mark.parametrize("notebook_path", list_nb)
 def test_notebook_execution(execute_preprocessor, notebook_path):
     with open(notebook_path, "r", encoding="utf-8") as f:
