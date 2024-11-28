@@ -6,3 +6,4 @@ pyoccad
 pythreejs
 joblib
 scikit-learn
+pre-commit
