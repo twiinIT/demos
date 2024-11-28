@@ -10,3 +10,5 @@ dependencies:
   - pytest
   - pyoccad
   - pythreejs
+  - joblib
+  - scikit-learn

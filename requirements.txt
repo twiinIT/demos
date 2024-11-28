@@ -4,3 +4,5 @@ jupyterlab
 cosapp_lab
 pyoccad
 pythreejs
+joblib
+scikit-learn
