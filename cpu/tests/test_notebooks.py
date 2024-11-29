@@ -1,54 +1,53 @@
 # Copyright (C) 2024, twiinIT
 # SPDX-License-Identifier: BSD-3-Clause
 
-import glob
-import os
+
+from pathlib import Path
 
 import nbformat
 import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
 
-NOTEBOOKS_DIR = "cpu/notebooks"
+NOTEBOOKS_DIR = Path(__file__).parent.parent / "notebooks"
 
 
-def list_notebooks(directory):
-    return [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith(".ipynb")]
-
-
-list_nb = list_notebooks(NOTEBOOKS_DIR)
 list_nb = [
-    "cpu/CPU_demos.ipynb",
-    "cpu/notebooks/steady-state_design.ipynb",
-    "cpu/notebooks/transient_simulation.ipynb",
-    "cpu/notebooks/generate_nominal_operation_data.ipynb",
-    "cpu/notebooks/generate_dysfunctional_operation_data.ipynb",
-    "cpu/notebooks/same_operating_conditions_simulation.ipynb",
-    "cpu/notebooks/ai_dataset_for_event_detection.ipynb",
-    "cpu/notebooks/ai_training_for_event_detection.ipynb",
-    "cpu/notebooks/spot_event_using_ai.ipynb",
-    "cpu/notebooks/calibration_transient_basics.ipynb",
-    "cpu/notebooks/calibration_broken_wo_event.ipynb",
-    "cpu/notebooks/calibration_broken_with_event.ipynb",
-    "cpu/notebooks/doe.ipynb",
-    "cpu/notebooks/montecarlo.ipynb",
-    "cpu/notebooks/solver_debugging.ipynb",
+    "steady-state_design.ipynb",
+    "transient_simulation.ipynb",
+    "generate_nominal_operation_data.ipynb",
+    "generate_dysfunctional_operation_data.ipynb",
+    "same_operating_conditions_simulation.ipynb",
+    "ai_dataset_for_event_detection.ipynb",
+    "ai_training_for_event_detection.ipynb",
+    "spot_event_using_ai.ipynb",
+    "calibration_transient_basics.ipynb",
+    "calibration_broken_wo_event.ipynb",
+    "calibration_broken_with_event.ipynb",
+    "doe.ipynb",
+    "montecarlo.ipynb",
+    "solver_debugging.ipynb",
+    "Parametric_geometry.ipynb",
 ]
 
 
 @pytest.fixture(scope="session")
 def execute_preprocessor():
+    """Return a preprocessor that can execute notebooks."""
     return ExecutePreprocessor(timeout=600)
 
 
 @pytest.mark.notebooks
 @pytest.mark.parametrize("notebook_path", list_nb)
 def test_notebook_execution(execute_preprocessor, notebook_path):
-    with open(notebook_path, "r", encoding="utf-8") as f:
+    """Test that the notebook can be executed without error."""
+    notebook_full_path = NOTEBOOKS_DIR / notebook_path
+
+    # Read the notebook
+    with notebook_full_path.open("r", encoding="utf-8") as f:
         notebook = nbformat.read(f, as_version=4)
 
     try:
-        execute_preprocessor.preprocess(
-            notebook, {"metadata": {"path": os.path.dirname(notebook_path)}}
-        )
+        # Execute the notebook
+        execute_preprocessor.preprocess(notebook, {"metadata": {"path": str(NOTEBOOKS_DIR)}})
     except Exception as e:
         pytest.fail(f"Notebook execution failed for {notebook_path}: {e}")
