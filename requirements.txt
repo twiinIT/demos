@@ -2,3 +2,8 @@ cosapp
 plotly
 jupyterlab
 cosapp_lab
+pyoccad
+pythreejs
+joblib
+scikit-learn
+pre-commit
