@@ -21,6 +21,6 @@ To use the project for development, install the project in the editable mode:
 pip install -e .
 ```
 
-## How to use it 
+## How to use it
 
 All CPU demos are presented in [notebooks](./cpu/notebooks/) and can be sequentially runned from the [descriptive notebook](./cpu/CPU_demos.ipynb).
