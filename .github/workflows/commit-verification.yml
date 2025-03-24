@@ -1,0 +1,51 @@
+name: Commit check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+defaults:
+  run:
+    # micromamba activation
+    shell: bash -l -eo pipefail {0}
+
+jobs:
+  files-check:
+    runs-on: [self-hosted, ubuntu-latest]
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create build environment
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: ./environment.yml
+          environment-name: test_env
+      - name: Run precommit
+        run: |
+          micromamba activate test_env
+          pre-commit run --all-files --verbose --show-diff-on-failure
+
+  run-test:
+    runs-on: [self-hosted, ubuntu-latest]
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create build environment
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: ./environment.yml
+          environment-name: test_env
+      - name: Test with pytest
+        run: |
+          micromamba activate test_env
+          pip install .
+          pytest -v -s --cov --cov-report=html
+          coverage report --fail-under=80
