@@ -3,7 +3,7 @@
 
 
 from pathlib import Path
-
+import glob
 import nbformat
 import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
@@ -11,23 +11,8 @@ from nbconvert.preprocessors import ExecutePreprocessor
 NOTEBOOKS_DIR = Path(__file__).parent.parent / "notebooks"
 
 
-list_nb = [
-    "steady-state_design.ipynb",
-    "transient_simulation.ipynb",
-    "generate_nominal_operation_data.ipynb",
-    "generate_dysfunctional_operation_data.ipynb",
-    "same_operating_conditions_simulation.ipynb",
-    "ai_dataset_for_event_detection.ipynb",
-    "ai_training_for_event_detection.ipynb",
-    "spot_event_using_ai.ipynb",
-    "calibration_transient_basics.ipynb",
-    "calibration_broken_wo_event.ipynb",
-    "calibration_broken_with_event.ipynb",
-    "doe.ipynb",
-    "montecarlo.ipynb",
-    "solver_debugging.ipynb",
-    "Parametric_geometry.ipynb",
-]
+list_nb = [file.name for file in NOTEBOOKS_DIR.glob("*ipynb")]
+list_nb = sorted(list_nb, key=lambda n: int(n.split("-")[0]))
 
 
 @pytest.fixture(scope="session")
