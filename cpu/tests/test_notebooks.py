@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 
-from pathlib import Path
 import glob
+from pathlib import Path
+
 import nbformat
 import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
