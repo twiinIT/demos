@@ -60,7 +60,10 @@ class RotorGeometry(System):
 
         to_remove = []
         for f in faces:
-            g = Geom_Plane.DownCast(BRep_Tool.Surface(f))
+            try:
+                g = Geom_Plane.DownCast(BRep_Tool.Surface(f))
+            except SystemError:
+                g = None
             if g and g.Location().X() > x0:
                 to_remove.append(f)
 

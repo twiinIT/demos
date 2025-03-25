@@ -4,12 +4,11 @@ channels:
 dependencies:
   - cosapp
   - numpy
-  - plotly
-  - cosapp_lab
-  - jupyterlab
+  - plotly<6.0.0
   - pytest
   - pyoccad
   - pythreejs
   - joblib
   - scikit-learn
   - pre-commit
+  - ipywidgets
