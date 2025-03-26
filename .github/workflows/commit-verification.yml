@@ -15,9 +15,7 @@ defaults:
 
 jobs:
   files-check:
-    runs-on: [self-hosted, ubuntu-latest]
-    container:
-      image: ghcr.io/catthehacker/ubuntu:act-22.04
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,9 +30,7 @@ jobs:
           pre-commit run --all-files --verbose --show-diff-on-failure
 
   run-test:
-    runs-on: [self-hosted, ubuntu-latest]
-    container:
-      image: ghcr.io/catthehacker/ubuntu:act-22.04
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
