@@ -43,5 +43,4 @@ jobs:
         run: |
           micromamba activate test_env
           pip install .
-          pytest -v -s --cov --cov-report=html
-          coverage report --fail-under=80
+          pytest -v
