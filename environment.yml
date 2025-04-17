@@ -14,3 +14,5 @@ dependencies:
   - ipywidgets
   - nbconvert
   - psutil
+  - pythonocc-core<7.9.0
+  - ipykernel
