@@ -1,3 +1,4 @@
+import platform
 import subprocess
 import time
 from multiprocessing import Process, Queue
@@ -21,32 +22,60 @@ def run_spinners(cpu_count: int, duration: float):
         process.join()
 
 
-pipeline = [(run_spinners, (8, 300)), (run_spinners, (1, 300)), (run_spinners, (8, 300))]
+pipeline = [(run_spinners, (8, 30)), (run_spinners, (1, 30))]
 
 
 def get_cpu_info(queue: Queue):
-    """Collect parameters from running CPU processors."""
+    """Assess the platform and collect parameters from running CPU processors."""
+    is_mac = platform.system() == "Darwin"
+    is_linux = platform.system() == "Linux"
+
     t0 = time.time()
-    while time.time() - t0 < 900:
+    while time.time() - t0 < 90:
         usage = psutil.cpu_percent(interval=1)
-        result = subprocess.run(["istats", "cpu", "--value-only"], capture_output=True, text=True)
-        output = result.stdout.strip().replace("°C", "").strip()
-        try:
-            temp_val = float(output)
-        except ValueError:
-            temp_val = None
-        # Get fan RPMs
-        result_fan = subprocess.run(
-            ["istats", "fan", "--value-only"], capture_output=True, text=True
-        )
-        fan_output_lines = result_fan.stdout.strip().splitlines()
-        # Parse first valid fan RPM
-        fan_rpms = []
-        for line in fan_output_lines:
+
+        if is_mac:
+            # Temperature  via istats
+            result = subprocess.run(
+                ["istats", "cpu", "--value-only"], capture_output=True, text=True
+            )
+            output = result.stdout.strip().replace("°C", "").strip()
             try:
-                val = int(line.replace("RPM", "").strip())
-                fan_rpms.append(val)
+                temp_val = float(output)
             except ValueError:
+                temp_val = None
+
+            # Get fan RPMs via istats
+            result_fan = subprocess.run(
+                ["istats", "fan", "--value-only"], capture_output=True, text=True
+            )
+            fan_output_lines = result_fan.stdout.strip().splitlines()
+            # Parse first valid fan RPM
+            fan_rpms = []
+            for line in fan_output_lines:
+                try:
+                    val = int(line.replace("RPM", "").strip())
+                    fan_rpms.append(val)
+                except ValueError:
+                    fan_rpms = None
+        elif is_linux:
+            # Temperature via ps_utils
+            try:
+                temps = psutil.sensors_temperatures()
+                if "coretemp" in temps:
+                    temp_val = temps["coretemp"][0].current
+                else:
+                    temp_val = None
+            except Exception:
+                temp_val = None
+            # Fan RPMs via ps_utils
+            try:
+                fans = psutil.sensors_fans()
+                if "fan1" in fans:
+                    fan_rpms = [fan[0] for fan in fans["fan1"]]
+                else:
+                    fan_rpms = None
+            except Exception:
                 fan_rpms = None
 
         elapsed = round(time.time() - t0, 3)
