@@ -1,16 +1,19 @@
-import time
-import psutil
 import subprocess
+import time
 from multiprocessing import Process, Queue
+
+import psutil
 
 
 def spin(duration: float):
+    """Spin CPU."""
     t0 = time.time()
     while time.time() < t0 + duration:
         pass
 
 
 def run_spinners(cpu_count: int, duration: float):
+    """Apply spin process for each selected CPU processor."""
     processes = [Process(target=spin, args=(duration,)) for _ in range(cpu_count)]
     for process in processes:
         process.start()
@@ -22,6 +25,7 @@ pipeline = [(run_spinners, (8, 300)), (run_spinners, (1, 300)), (run_spinners, (
 
 
 def get_cpu_info(queue: Queue):
+    """Collect parameters from running CPU processors."""
     t0 = time.time()
     while time.time() - t0 < 900:
         usage = psutil.cpu_percent(interval=1)
@@ -52,11 +56,13 @@ def get_cpu_info(queue: Queue):
 
 
 def run_cpu_monitor(queue: Queue):
+    """Run CPU info collection process."""
     process = Process(target=get_cpu_info, args=(queue,))
     process.start()
     return process
 
 
 def run_pipeline(pipeline):
+    """Run each step of pipeline."""
     for func, args in pipeline:
         func(*args)

@@ -1,8 +1,10 @@
 from cosapp.drivers import NonLinearSolver
+
 from cpu.systems import CPUSystem
 
 
 def run_simulation(queue):
+    """Run simulation at each time step collecting live CPU data."""
     cpu = CPUSystem("cpu")
     cpu.add_driver(NonLinearSolver("solver", max_iter=10, factor=1.0, tol=1e-6))
     cpu["exchanger.h_adder"] = 150
