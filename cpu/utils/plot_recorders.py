@@ -14,19 +14,19 @@ def plot_recorders(recs, pplots, *args, **kwargs):
             x, y = p
 
             plot_options = dict(
-                width=1800,
-                height=800,
+                width=1200,
+                height=400,
                 title={
-                    "text": f"CPU simulation analysis: {y}=f({x})",
-                    "font": {"size": 34},
+                    "text": "CPU simulation analysis",
+                    "font": {"size": 18},
                     "x": 0.5,
                 },
-                xaxis={"title": {"text": f"{x}", "font": {"size": 20}}, "gridcolor": "#EBF0F8"},
-                yaxis={"title": {"text": f"{y}", "font": {"size": 20}}, "gridcolor": "#EBF0F8"},
+                xaxis={"title": {"text": f"{x}", "font": {"size": 12}}, "gridcolor": "#EBF0F8"},
+                yaxis={"title": {"text": f"{y}", "font": {"size": 12}}, "gridcolor": "#EBF0F8"},
                 legend={
                     "x": 0.35,
                     "y": 0.25,
-                    "font": {"size": 20},
+                    "font": {"size": 8},
                     "orientation": "h",
                     "xanchor": "center",
                 },

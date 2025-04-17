@@ -17,15 +17,15 @@ class HeatExchanger(System):
         self.add_inward(
             "cp", 1004.0, unit="J/K/kg", desc="Heat capacity of air at constant pressure"
         )
-        self.add_inward("h_natural", 110.0, unit="J/K/kg", desc="Heat natural conductivity")
-        self.add_inward("h_forced", 200.0, unit="J/K/kg", desc="Heat forced conductivity")
-        self.add_inward("h_adder", 0.0, unit="J/K/kg", desc="Heat conductivity adder")
+        self.add_inward("h_natural", 10, unit="W/(K*m**2)", desc="Heat natural conductivity")
+        self.add_inward("h_forced", 100, unit="W/(K*m**2)", desc="Heat forced conductivity")
+        self.add_inward("h_adder", 0.0, unit="W/(K*m**2)", desc="Heat conductivity adder")
         self.add_inward("max_mass_flow", 1.0, unit="kg/s", desc="Maximum air mass flow")
 
         # outputs
         self.add_output(FluidPort, "fl_out")
         self.add_outward("heat_flow", 0.0, unit="W", desc="Exchanger-to-air heat flow")
-        self.add_outward("h", 310.0, unit="W/K/m**2", desc="Heat conductivity")
+        self.add_outward("h", 110.0, unit="W/(K*m**2)", desc="Heat conductivity")
 
     def compute(self):
         self.h = (
