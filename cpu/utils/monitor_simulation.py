@@ -27,6 +27,7 @@ def run_simulation(queue):
 
         simulated_T = cpu["cpu.next_T"]
         cpu["cpu.T"] = simulated_T
+        i += 1
 
         print(
             f"[SIM] t={t:.1f}s | \
