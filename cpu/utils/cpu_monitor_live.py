@@ -22,9 +22,6 @@ def run_spinners(cpu_count: int, duration: float):
         process.join()
 
 
-pipeline = [(run_spinners, (8, 30)), (run_spinners, (1, 30))]
-
-
 def get_cpu_info(queue: Queue):
     """Assess the platform and collect parameters from running CPU processors."""
     is_mac = platform.system() == "Darwin"
