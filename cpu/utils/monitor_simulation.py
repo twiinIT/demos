@@ -44,8 +44,7 @@ def run_simulation(queue):
                 "cpu.usage": usage,
                 "T_cpu_simulee": simulated_T,
                 "T_cpu_mesuree": measured_T,
-                "Fan_rpm_1": fan_rpms[1],
-                "Fan_rpm_2": fan_rpms[2],
+                "Fan_rpm_1": fan_rpms,
             }
         )
 

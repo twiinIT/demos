@@ -35,46 +35,37 @@ def get_cpu_info(queue: Queue):
         usage = psutil.cpu_percent(interval=1)
 
         if is_mac:
-            # Temperature  via istats
-            result = subprocess.run(
-                ["istats", "cpu", "--value-only"], capture_output=True, text=True
-            )
-            output = result.stdout.strip().replace("°C", "").strip()
+            # Temperature via istats
             try:
+                result = subprocess.run(
+                    ["istats", "cpu", "--value-only"], capture_output=True, text=True
+                )
+                output = result.stdout.strip().replace("°C", "").strip()
                 temp_val = float(output)
             except ValueError:
                 temp_val = None
 
             # Get fan RPMs via istats
-            result_fan = subprocess.run(
-                ["istats", "fan", "--value-only"], capture_output=True, text=True
-            )
-            fan_output_lines = result_fan.stdout.strip().splitlines()
-            # Parse first valid fan RPM
-            fan_rpms = []
-            for line in fan_output_lines:
-                try:
-                    val = int(line.replace("RPM", "").strip())
-                    fan_rpms.append(val)
-                except ValueError:
-                    fan_rpms = None
+            try:
+                result_fan = subprocess.run(
+                    ["istats", "fan", "--value-only"], capture_output=True, text=True
+                )
+                fan_output_lines = result_fan.stdout.strip().splitlines()
+                fan_rpms = int(fan_output_lines[1].replace("RPM", "").strip())
+            except ValueError:
+                fan_rpms = None
+
         elif is_linux:
             # Temperature via ps_utils
             try:
                 temps = psutil.sensors_temperatures()
-                if "coretemp" in temps:
-                    temp_val = temps["coretemp"][0].current
-                else:
-                    temp_val = None
+                temp_val = temps["coretemp"][0].current
             except Exception:
                 temp_val = None
+
             # Fan RPMs via ps_utils
             try:
-                fans = psutil.sensors_fans()
-                if "fan1" in fans:
-                    fan_rpms = [fan[0] for fan in fans["fan1"]]
-                else:
-                    fan_rpms = None
+                fan_rpms = psutil.sensors_fans().popitem()[1][0].current
             except Exception:
                 fan_rpms = None
 
