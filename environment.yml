@@ -13,3 +13,5 @@ dependencies:
   - pre-commit
   - ipywidgets
   - nbconvert
+  - pythonocc-core<7.9.0
+  - ipykernel
