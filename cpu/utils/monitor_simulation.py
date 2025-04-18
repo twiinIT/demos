@@ -1,22 +1,22 @@
-from cosapp.drivers import NonLinearSolver
+from multiprocessing import Process
+import time
 
-from cpu.systems import CPUSystem
+
+def run_cpu_simulation(queue, cpu, duration):
+    process = Process(target=run_simulation, args=(queue, cpu, duration))
+    process.start()
+    return process
 
 
-def run_simulation(queue):
+def run_simulation(queue, cpu, duration):
     """Run simulation at each time step collecting live CPU data."""
-    cpu = CPUSystem("cpu")
-    cpu.add_driver(NonLinearSolver("solver", max_iter=10, factor=1.0, tol=1e-6))
-    cpu["exchanger.h_adder"] = 150
-    cpu["cpu.heat_capacity"] = 100
 
     simulation_results = []
     i = 0
     simulated_T = 0.0
-    while True:
+    t0 = time.time()
+    while time.time() < t0 + duration:
         data = queue.get()
-        if data == "DONE":
-            break
 
         # prepare and run simu
         t, usage, measured_T, fan_rpms = data
