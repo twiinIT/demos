@@ -1,10 +1,11 @@
-import pandas as pd
 from multiprocessing import Queue
+
+import pandas as pd
 from cosapp.drivers import NonLinearSolver
 
-from cpu.utils.cpu_monitor_live import run_cpu_monitor, run_pipeline, get_pipeline
-from cpu.utils.monitor_simulation import run_cpu_simulation
 from cpu.systems import CPUSystem
+from cpu.utils.cpu_monitor_live import get_pipeline, run_cpu_monitor, run_pipeline
+from cpu.utils.monitor_simulation import run_cpu_simulation
 
 
 def test_cpu_monitoring():
