@@ -5,31 +5,38 @@ import ipywidgets
 import plotly.graph_objs as go
 
 
-def plot_recorders(recs, pplots, *args, **kwargs):
+def plot_recorders(recs, pplots, title="", **kwargs):
     """plot_recorders."""
     plots = []
+    vsize = len(pplots)
+    hsize = len(pplots[0])
+    width = 300 * hsize
+    height = 400 * vsize
     for r in pplots:
         r_plots = []
         for p in r:
             x, y = p
+            x, xlabel = x.popitem() if isinstance(x, dict) else (x, x)
+            y, ylabel = y.popitem() if isinstance(y, dict) else (y, y)
 
             plot_options = dict(
-                width=1200,
-                height=400,
-                title={
-                    "text": "CPU simulation analysis",
-                    "font": {"size": 18},
-                    "x": 0.5,
+                width=width,
+                height=height,
+                xaxis={
+                    "title": {"text": f"{xlabel}", "font": {"size": 20}},
+                    "gridcolor": "#EBF0F8",
                 },
-                xaxis={"title": {"text": f"{x}", "font": {"size": 12}}, "gridcolor": "#EBF0F8"},
-                yaxis={"title": {"text": f"{y}", "font": {"size": 12}}, "gridcolor": "#EBF0F8"},
-                legend={
-                    "x": 0.35,
-                    "y": 0.25,
-                    "font": {"size": 8},
-                    "orientation": "h",
-                    "xanchor": "center",
+                yaxis={
+                    "title": {"text": f"{ylabel}", "font": {"size": 20}},
+                    "gridcolor": "#EBF0F8",
                 },
+                # legend={
+                #     "x": 0.35,
+                #     "y": 0.25,
+                #     "font": {"size": 20},
+                #     "orientation": "h",
+                #     "xanchor": "center",
+                # },
                 plot_bgcolor="white",
                 hovermode="x",
             )
