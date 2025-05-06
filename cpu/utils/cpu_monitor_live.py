@@ -29,17 +29,20 @@ def run_pipeline(pipeline):
 
 
 def get_mac_temperature():
+    """Capture CPU temperature for Mac OS."""
     result = subprocess.run(["istats", "cpu", "--value-only"], capture_output=True, text=True)
     output = result.stdout.strip().replace("°C", "").strip()
     return float(output)
 
 
 def get_linux_temperature():
+    """Capture CPU temperature for Linux OS."""
     temps = psutil.sensors_temperatures()
     return temps["coretemp"][0].current
 
 
 def get_mac_fan_speed():
+    """Capture fan speed for Mac OS."""
     result_fan = subprocess.run(["istats", "fan", "--value-only"], capture_output=True, text=True)
     fan_output_lines = result_fan.stdout.strip().splitlines()
     fan_rpms = int(fan_output_lines[1].replace("RPM", "").strip())
@@ -47,6 +50,7 @@ def get_mac_fan_speed():
 
 
 def get_linux_fan_speed():
+    """Capture fan speed for Linux OS."""
     return psutil.sensors_fans().popitem()[1][0].current
 
 
@@ -90,6 +94,7 @@ def run_cpu_monitor(queue: Queue, duration: float):
 
 
 def get_pipeline(sequence):
+    """Prepare pipeline tasks from sequence dict."""
     pipeline = []
     total_duration = 0.0
     for step in sequence.values():

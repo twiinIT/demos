@@ -1,8 +1,9 @@
-from multiprocessing import Process
 import time
+from multiprocessing import Process
 
 
 def run_cpu_simulation(queue, cpu, duration):
+    """Run global simulation as process."""
     process = Process(target=run_simulation, args=(queue, cpu, duration))
     process.start()
     return process
