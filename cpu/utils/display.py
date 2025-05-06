@@ -2,26 +2,18 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import ipywidgets as widgets
-from pyoccad.render import JupyterThreeJSRenderer, JupyterThreeJSRenderer2d
 
 
-def render_view(shape, size=(600, 600), position=(-1.0, 0, 0), view_2D=False):
-    view_obj = JupyterThreeJSRenderer2d if view_2D else JupyterThreeJSRenderer
-    render = view_obj(view_size=size, camera_target=(1.0, 0.0, 0.0), camera_position=position)
-    render_row = render.add_shape(
-        shape, uid="blade", face_color="#156289", opacity=1.0, plot_edges=False
-    )
-    return render, render_row
-
-
-def compare_with_image(s):
+def compare_with_image(s, render2d, render):
     """Compare with image."""
     file = open("../images/fan.png", "rb")
     image = file.read()
-    img = widgets.Image(value=image, format="png", width=600, height=600)
-
-    render, _ = render_view(s.geometry.shape)
-    render2d, _ = render_view(s.geometry.shape, view_2D=True)
+    img = widgets.Image(
+        value=image,
+        format="png",
+        width=600,
+        height=600,
+    )
 
     blade_slider = widgets.IntSlider(
         value=7,
